@@ -1,0 +1,308 @@
+﻿<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PineappleFX — Motion toolkit for After Effects</title>
+<meta name="description" content="PineappleFX by sxii.edits. Easing, text, transitions, glass, styles, expressions, numbers, devices and tools for After Effects. $15 one-time." />
+<meta name="theme-color" content="#f5c400" />
+<link rel="icon" type="image/png" href="./assets/logo.png" />
+<style>
+:root{
+  --surface:#fffbf0; --grouped:#f4eada; --elevated:#ffffff;
+  --label:#2e2210; --label-2:#7a6446; --label-3:#ac9c82;
+  --accent:#b07e00; --accent-hi:#ca9610; --accent-ink:#241a04;
+  --hairline:#e4d4bc; --glow:rgba(176,126,0,.16);
+  --mock-bg:#1b1b1e; --mock-card:#242427; --mock-line:#3a3a3f; --mock-txt:#f2f2f0; --mock-dim:#a9a9a4;
+  color-scheme:light;
+}
+html[data-theme="dark"]{
+  --surface:#17171a; --grouped:#1e1e22; --elevated:#26262b;
+  --label:#f4f4f1; --label-2:#b2b2ae; --label-3:#717171;
+  --accent:#feca08; --accent-hi:#ffd850; --accent-ink:#241a04;
+  --hairline:#3c3c41; --glow:rgba(254,202,8,.12);
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--surface);color:var(--label);font-family:-apple-system,"Segoe UI",Roboto,Inter,sans-serif;line-height:1.55;transition:background .25s,color .25s}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--surface) 86%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--hairline)}
+nav .wrap{display:flex;align-items:center;gap:14px;height:60px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:17px;letter-spacing:-.3px;text-decoration:none;color:var(--label)}
+.brand img{width:30px;height:30px}
+.brand b{color:var(--accent)}
+nav .links{margin-left:auto;display:flex;gap:4px;align-items:center}
+nav .links a.nl{color:var(--label-2);text-decoration:none;font-size:13.5px;font-weight:600;padding:7px 11px;border-radius:999px}
+nav .links a.nl:hover{color:var(--label);background:var(--grouped)}
+.tbtn{cursor:pointer;border:1px solid var(--hairline);background:var(--grouped);color:var(--label);border-radius:999px;width:34px;height:34px;font-size:15px}
+.buy-sm{background:linear-gradient(180deg,var(--accent-hi),var(--accent));color:var(--accent-ink)!important;font-weight:800}
+header.hero{text-align:center;padding:76px 20px 54px;background:radial-gradient(70% 90% at 50% 0%,var(--glow),transparent 65%)}
+header.hero img.logo{width:104px;height:104px;filter:drop-shadow(0 14px 30px var(--glow))}
+h1{font-size:clamp(34px,6vw,56px);font-weight:800;letter-spacing:-1.5px;margin:18px 0 6px}
+h1 span{color:var(--accent)}
+.sub{color:var(--label-2);font-size:16.5px;max-width:600px;margin:0 auto}
+.price-row{display:flex;gap:12px;justify-content:center;align-items:center;margin-top:26px;flex-wrap:wrap}
+.price{font-size:30px;font-weight:800}
+.price small{font-size:13px;color:var(--label-2);font-weight:600}
+.btn{display:inline-block;text-decoration:none;font-weight:800;font-size:15px;padding:13px 30px;border-radius:999px;border:none;cursor:pointer}
+.btn-pay{background:linear-gradient(180deg,var(--accent-hi),var(--accent));color:var(--accent-ink);box-shadow:0 10px 26px -8px var(--glow),inset 0 1px rgba(255,255,255,.4)}
+.btn-ghost{border:1px solid var(--hairline);color:var(--label);background:var(--elevated)}
+.trial-note{font-size:12.5px;color:var(--label-3);margin-top:12px}
+section{padding:56px 0}
+h2{font-size:26px;letter-spacing:-.6px;margin-bottom:6px;text-align:center}
+.sec-sub{text-align:center;color:var(--label-2);font-size:14.5px;margin-bottom:28px}
+/* UI mock */
+.mock{background:var(--mock-bg);border:1px solid var(--mock-line);border-radius:18px;overflow:hidden;box-shadow:0 30px 80px -20px rgba(0,0,0,.55);font-size:12px;color:var(--mock-txt)}
+.mock-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--mock-line)}
+.mock-bar img{width:22px;height:22px}
+.mock-title{font-weight:800;font-size:13px}
+.mock-title span{color:#feca08}
+.mock-pro{font-size:8.5px;font-weight:800;color:#feca08;background:rgba(254,202,8,.15);border-radius:4px;padding:2px 6px;letter-spacing:.6px}
+.mock-pills{display:flex;gap:6px;margin-left:8px;flex:1;overflow:hidden}
+.mock-pills i{font-style:normal;padding:4px 12px;border-radius:999px;color:var(--mock-dim);border:1px solid transparent;white-space:nowrap}
+.mock-pills i.on{background:linear-gradient(180deg,#ffd850,#feca08);color:#241a04;font-weight:700}
+.mock-dots{margin-left:auto;color:var(--mock-dim);letter-spacing:2px}
+.mock-body{display:grid;grid-template-columns:200px 1fr;min-height:300px}
+.mock-list{border-right:1px solid var(--mock-line);padding:10px}
+.mock-list i{display:block;font-style:normal;padding:7px 10px;border-radius:8px;color:var(--mock-dim);font-size:11.5px}
+.mock-list i.on{background:linear-gradient(180deg,#ffd850,#feca08);color:#241a04;font-weight:700}
+.mock-main{padding:16px}
+.mock-curve{background:#202024;border:1px solid var(--mock-line);border-radius:12px;padding:8px}
+.mock-params{margin-top:12px;display:grid;gap:9px}
+.prow{display:flex;align-items:center;gap:10px;color:var(--mock-dim);font-size:11.5px}
+.prow b{color:var(--mock-txt);font-weight:600;min-width:70px}
+.mslider{flex:1;height:5px;border-radius:99px;background:linear-gradient(to right,#feca08 var(--f,50%),#3a3a3f var(--f,50%));position:relative}
+.mslider::after{content:"";position:absolute;left:var(--f,50%);top:50%;width:11px;height:11px;border-radius:50%;background:#feca08;transform:translate(-50%,-50%);box-shadow:0 0 0 3px rgba(254,202,8,.25)}
+.seg{display:flex;background:#202024;border:1px solid var(--mock-line);border-radius:999px;padding:2px}
+.seg i{font-style:normal;padding:3px 14px;border-radius:999px;color:var(--mock-dim)}
+.seg i.on{background:#feca08;color:#241a04;font-weight:700}
+.swatch{width:22px;height:22px;border-radius:50%;background:#feca08;border:2px solid #3a3a3f}
+.mock-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--mock-line);padding:10px 14px;color:var(--mock-dim);font-size:11px}
+.apply{background:linear-gradient(180deg,#ffd850,#feca08);color:#241a04;font-weight:800;border:none;border-radius:999px;padding:7px 22px;font-size:12px}
+/* features */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card{background:var(--elevated);border:1px solid var(--hairline);border-radius:16px;padding:20px}
+.card h3{font-size:15.5px;margin-bottom:4px}
+.card h3 span{color:var(--accent)}
+.card p{font-size:13px;color:var(--label-2)}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;counter-reset:st}
+.step{background:var(--elevated);border:1px solid var(--hairline);border-radius:16px;padding:22px 20px;position:relative}
+.step::before{counter-increment:st;content:counter(st);display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:linear-gradient(180deg,var(--accent-hi),var(--accent));color:var(--accent-ink);font-weight:800;font-size:14px;margin-bottom:10px}
+.step code{background:var(--grouped);border:1px solid var(--hairline);border-radius:6px;padding:1px 7px;font-size:12px}
+/* faq */
+details{background:var(--elevated);border:1px solid var(--hairline);border-radius:12px;padding:14px 18px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:700;font-size:14px}
+details p{font-size:13.5px;color:var(--label-2);margin-top:8px}
+footer{border-top:1px solid var(--hairline);padding:26px 0 40px;text-align:center;color:var(--label-3);font-size:12.5px}
+footer img{width:26px;height:26px;vertical-align:-7px;margin-right:6px}
+@media(max-width:640px){.mock-body{grid-template-columns:1fr}.mock-list{display:none}nav .links a.nl{display:none}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="brand" href="#"><img src="./assets/logo.png" alt="PineappleFX logo" />Pineapple<b>FX</b></a>
+  <div class="links">
+    <a class="nl" href="#features">Features</a>
+    <a class="nl" href="#preview">Preview</a>
+    <a class="nl" href="#pricing">Pricing</a>
+    <a class="nl" href="#order">Get key</a>
+    <a class="nl" href="#install">Install</a>
+    <a class="nl" href="#faq">FAQ</a>
+    <button class="tbtn" id="themeBtn" title="Toggle dark / light"></button>
+    <a class="nl buy-sm" href="#pricing">Buy — $15 USD</a>
+  </div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <img class="logo" src="./assets/logo.png" alt="PineappleFX logo" />
+  <h1>Pineapple<span>FX</span></h1>
+  <p class="sub">The motion toolkit for After Effects. Easing, text animators, transitions, liquid glass, styles, expressions, counters, device frames and more — in one fast panel. By sxii.edits.</p>
+  <div class="price-row">
+    <span class="price" id="heroPrice">$15 <small>one-time · USD</small></span>
+    <!-- ============================================================
+         REPLACE-ME: paste your PayPal.Me link below (keep the /15USD).
+         Example: https://www.paypal.me/yourname/15USD
+         ============================================================ -->
+    <a class="btn btn-pay" id="payBtn" href="https://paypal.me/sxiiedits/15USD">Buy with PayPal — $15 USD</a>
+    <a class="btn btn-ghost" href="#preview">See it in action</a>
+  </div>
+  <p class="trial-note">One license = one machine. Your key + installer arrive by email after purchase. — </p>
+</div></header>
+
+<section id="features"><div class="wrap">
+  <h2>Everything in one panel</h2>
+  <p class="sec-sub">Nine tabs, hundreds of presets, one Apply button.</p>
+  <div class="grid">
+    <div class="card"><h3><span>Easing</span></h3><p>Apple-standard curves, springs and custom bezier editor with live preview.</p></div>
+    <div class="card"><h3><span>Text</span></h3><p>Range-selector text animators: slides, bounces, typewriter, staggers and more.</p></div>
+    <div class="card"><h3><span>Transitions</span></h3><p>Fade, rise, drop, scale, spin, blur and whip transitions with in/out support.</p></div>
+    <div class="card"><h3><span>Glass</span></h3><p>Liquid-glass rigs with blur, refraction, lighting and shadows.</p></div>
+    <div class="card"><h3><span>Styles</span></h3><p>One-click grade, glow, grain and color treatments.</p></div>
+    <div class="card"><h3><span>Expressions</span></h3><p>Wiggle, bounce, loop, orbit, sway, flicker and 20+ ready expressions.</p></div>
+    <div class="card"><h3><span>Numbers</span></h3><p>Animated counters, timers and stat callouts.</p></div>
+    <div class="card"><h3><span>Devices</span></h3><p>iPhone and iPad frames with screens, glare and Dynamic Island.</p></div>
+    <div class="card"><h3><span>Tools</span></h3><p>Sequence layers, text boxes, color fields and batch helpers.</p></div>
+  </div>
+</div></section>
+
+<section id="preview"><div class="wrap">
+  <h2>The actual interface</h2>
+  <p class="sec-sub">This is what the PineappleFX panel looks like inside After Effects.</p>
+  <div class="mock">
+    <div class="mock-bar">
+      <img src="./assets/logo.png" alt="" /><span class="mock-title">Pineapple<span>FX</span></span><span class="mock-pro">PRO</span>
+      <div class="mock-pills"><i class="on">Easing</i><i>Text</i><i>Transitions</i><i>Glass</i><i>Styles</i><i>Expressions</i></div>
+      <span class="mock-dots">â— â— â—</span>
+    </div>
+    <div class="mock-body">
+      <div class="mock-list"><i class="on">Apple Standard</i><i>Emphasized</i><i>Decelerated</i><i>Spring · Soft</i><i>Spring · Bouncy</i><i>Snap</i><i>Anticipate</i><i>Bouncy</i></div>
+      <div class="mock-main">
+        <div class="mock-curve">
+          <svg viewBox="0 0 360 150" width="100%" height="120" preserveAspectRatio="xMidYMid meet">
+            <g stroke="#3a3a3f" stroke-width="1"><line x1="20" y1="20" x2="20" y2="130"/><line x1="20" y1="130" x2="340" y2="130"/></g>
+            <line x1="20" y1="130" x2="110" y2="130" stroke="#717171" stroke-dasharray="3 3"/>
+            <line x1="340" y1="30" x2="250" y2="30" stroke="#717171" stroke-dasharray="3 3"/>
+            <path d="M 20 130 C 110 130 140 30 340 30" fill="none" stroke="#feca08" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="110" cy="130" r="5" fill="#feca08"/><circle cx="250" cy="30" r="5" fill="#feca08"/>
+            <circle cx="20" cy="130" r="4" fill="#f2f2f0"/><circle cx="340" cy="30" r="4" fill="#f2f2f0"/>
+          </svg>
+        </div>
+        <div class="mock-params">
+          <div class="prow"><b>Direction</b><span class="seg"><i class="on">In</i><i>Out</i></span></div>
+          <div class="prow"><b>Duration</b><span class="mslider" style="--f:55%"></span><span>1.50 s</span></div>
+          <div class="prow"><b>Color</b><span class="swatch"></span><span>#FECA08</span></div>
+          <div class="prow"><b>Blur</b><span class="mslider" style="--f:35%"></span><span>21 px</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="mock-foot"><span>PineappleFX 2.0.0 · After Effects</span><span class="apply">Apply</span></div>
+  </div>
+</div></section>
+
+<section id="pricing"><div class="wrap" style="text-align:center">
+  <h2>One price, yours forever</h2>
+  <p class="sec-sub">$15 one-time. Free updates in the 2.x line. One license per machine.</p>
+  <div class="price-row">
+    <span class="price" id="priceVal">$15 <small>one-time · USD</small></span>
+    <a class="btn btn-pay" id="pricePay" href="https://paypal.me/sxiiedits/15USD">Buy with PayPal — $15 USD</a>
+  </div>
+  <div style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+    <input id="couponInput" placeholder="Coupon code (optional)" spellcheck="false" autocomplete="off" style="background:var(--surface);border:1px solid var(--hairline);border-radius:999px;color:var(--label);padding:11px 18px;font-size:14px;min-width:220px;outline:none;" />
+    <button id="couponApply" class="btn btn-ghost" style="padding:11px 24px;">Apply</button>
+  </div>
+  <p id="couponMsg" class="sec-sub" style="margin:8px 0 0;min-height:20px;"></p>
+  <div class="steps" style="margin-top:34px;text-align:left">
+    <div class="step"><b>1. Pay $15</b><p>Check out with the PayPal button above. Note your transaction ID.</p></div>
+    <div class="step"><b>2. Send your details</b><p>Fill the order form below: your <b>email</b>, the <b>Machine ID</b> shown on the locked panel, and your PayPal <b>transaction ID</b>. You receive your personal <code>PFX2-...</code> key plus installer by email - keys are never lost.</p></div>
+    <div class="step"><b>3. Check your email</b><p>Your personal key plus your installer arrive by email.</p></div>
+    <div class="step"><b>4. Install &amp; activate</b><p>Install the .zxp, paste your key into the panel. It unlocks on your machine instantly, offline.</p></div>
+  </div>
+</div></section>
+
+<section id="order"><div class="wrap" style="max-width:640px">
+  <h2>Get your license</h2>
+  <p class="sec-sub">Paid already? Send your details and your key + installer go to your email.</p>
+  <form action="https://formsubmit.co/sxiiscan@gmail.com" method="POST" style="background:var(--elevated);border:1px solid var(--hairline);border-radius:16px;padding:24px;display:grid;gap:12px;">
+    <input type="hidden" name="_subject" value="PineappleFX order" />
+    <input type="hidden" name="_template" value="table" />
+    <input type="hidden" name="coupon" id="couponField" value="" />
+    <label style="font-size:13px;font-weight:700;">Email (your key goes here)<input type="email" name="email" required placeholder="you@mail.com" style="display:block;width:100%;margin-top:5px;background:var(--surface);border:1px solid var(--hairline);border-radius:9px;color:var(--label);padding:10px;font-size:14px;" /></label>
+    <label style="font-size:13px;font-weight:700;">Machine ID (shown on the locked panel - click it to copy)<input name="machine_id" required placeholder="ABCDEFGH" pattern="[A-Za-z0-9]{8}" maxlength="8" style="display:block;width:100%;margin-top:5px;background:var(--surface);border:1px solid var(--hairline);border-radius:9px;color:var(--label);padding:10px;font-size:14px;font-family:monospace;text-transform:uppercase;" /></label>
+    <label style="font-size:13px;font-weight:700;">PayPal transaction ID<input name="txn_id" required placeholder="e.g. 8RU12345AB678901C" style="display:block;width:100%;margin-top:5px;background:var(--surface);border:1px solid var(--hairline);border-radius:9px;color:var(--label);padding:10px;font-size:14px;" /></label>
+    <button class="btn btn-pay" type="submit" style="width:100%;">Send order details</button>
+  </form>
+  <p class="sec-sub" style="margin-top:10px;font-size:12px;">Orders go straight to the seller - expect your key by email shortly.</p>
+</div></section>
+
+<section id="install"><div class="wrap" style="max-width:720px">
+  <h2>Install &amp; activate</h2>
+  <p class="sec-sub">Five minutes, once.</p>
+  <div class="steps" style="text-align:left">
+    <div class="step"><b>1. Enable debug mode</b><p>Run once as admin: <code>reg add HKCU\Software\Adobe\CSXS.11 /v PlayerDebugMode /t REG_SZ /d 1 /f</code></p></div>
+    <div class="step"><b>2. Install the .zxp</b><p>Open it with an extension manager, or copy the folder to <code>%APPDATA%\Adobe\CEP\extensions\</code>. <b>Use the personal .zxp from your purchase email</b> (it comes pre-activated for your machine)</p></div>
+    <div class="step"><b>3. Copy your Machine ID</b><p>Restart After Effects, open Window - Extensions - PineappleFX. Click the Machine ID to copy it.</p></div>
+    <div class="step"><b>4. Activate</b><p>Paste the key from your email into the panel. Done - works offline from here on.</p></div>
+  </div>
+</div></section>
+
+<section id="faq"><div class="wrap" style="max-width:720px">
+  <h2>FAQ</h2>
+  <p class="sec-sub">Quick answers.</p>
+  <details><summary>Which After Effects versions work?</summary><p>After Effects 22.0 and newer (2022 → 2026), Windows and macOS.</p></details>
+  <details><summary>How do I install it?</summary><p>Open the .zxp with an extension manager (e.g. Anastasiy Extension Manager) with PlayerDebugMode enabled, or copy the folder into the CEP extensions folder and restart After Effects.</p></details>
+  <details><summary>How does the license work?</summary><p>Each key is locked to one machine (your panel shows its Machine ID). Paste the key once - it works offline forever. Sharing a key does nothing on other machines.</p></details>
+  <details><summary>What if I change computers or lose my key?</summary><p>Your key is always in your purchase email. New machine? Send the new Machine ID plus transaction ID to sxii.edits for a free reissue.</p></details>
+  <details><summary>One key, how many machines?</summary><p>Your key is yours. If you switch machines, just paste it again.</p></details>
+  <details><summary>Do I need internet?</summary><p>Only to download. License checks work fully offline.</p></details>
+</div></section>
+
+<footer><div class="wrap">
+  <img src="./assets/logo.png" alt="" />PineappleFX 2.0.0 — by sxii.edits · $15 one-time
+</div></footer>
+
+<script>
+(function(){
+  // Theme: saved choice wins, else system preference.
+  var root = document.documentElement, KEY = "pineapplefx-site-theme";
+  function current(){
+    try { var s = localStorage.getItem(KEY); if (s === "light" || s === "dark") return s; } catch(e){}
+    return (window.matchMedia && matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark";
+  }
+  function paint(){
+    var t = current();
+    root.setAttribute("data-theme", t);
+    document.getElementById("themeBtn").textContent = (t === "dark") ? "☀" : "☾";
+  }
+  document.getElementById("themeBtn").onclick = function(){
+    var next = (root.getAttribute("data-theme") === "dark") ? "light" : "dark";
+    try { localStorage.setItem(KEY, next); } catch(e){}
+    paint();
+  };
+  paint();
+  // ============================================================
+  // REPLACE-ME: paste your PayPal.Me link here too (keep /15USD).
+  // ============================================================
+  var PAYPAL_ME = "https://paypal.me/sxiiedits/15USD";
+  document.getElementById("payBtn").href = PAYPAL_ME;
+  var HALF_URL = "https://paypal.me/sxiiedits/7.50USD";
+  var COUPONS = { "PINFX-#UB-)5>}": "half", "OWNPFX-UKVL&{4B": "free" };
+  function couponGet(){ try { return localStorage.getItem("pineapplefx-coupon") || ""; } catch(e){ return ""; } }
+  function couponSet(c){ try { localStorage.setItem("pineapplefx-coupon", c); } catch(e){} }
+  function paintCoupon(){
+    var c = couponGet(), msg = document.getElementById("couponMsg");
+    var hp = document.getElementById("heroPrice"), pp = document.getElementById("priceVal");
+    var hb = document.getElementById("payBtn"), pb = document.getElementById("pricePay");
+    var fld = document.getElementById("couponField");
+    if (c === "PINFX-#UB-)5>}") {
+      hp.innerHTML = pp.innerHTML = "$7.50 <small>one-time - 50% off · USD</small>";
+      hb.href = pb.href = HALF_URL;
+      hb.textContent = pb.textContent = "Buy with PayPal — $7.50 USD";
+      fld.value = c;
+      msg.style.color = "var(--label-2)"; msg.textContent = "50% off applied.";
+    } else if (c === "OWNPFX-UKVL&{4B") {
+      hp.innerHTML = pp.innerHTML = "$0 <small>owner license</small>";
+      hb.href = pb.href = "#order";
+      hb.textContent = pb.textContent = "Claim free license";
+      fld.value = c;
+      msg.style.color = "var(--label-2)"; msg.textContent = "Owner coupon - no payment needed, just send the form.";
+    } else {
+      hp.innerHTML = pp.innerHTML = "$15 <small>one-time · USD</small>";
+      hb.href = pb.href = PAYPAL_ME;
+      hb.textContent = pb.textContent = "Buy with PayPal — $15 USD";
+      fld.value = "";
+    }
+  }
+  document.getElementById("couponApply").onclick = function(){
+    var v = document.getElementById("couponInput").value.trim();
+    var msg = document.getElementById("couponMsg");
+    var hit = null;
+    Object.keys(COUPONS).forEach(function(k){ if (k === v || k === v.toUpperCase()) hit = k; });
+    if (hit) { couponSet(hit); paintCoupon(); }
+    else { msg.style.color = "#e5484d"; msg.textContent = "That code did not work."; }
+  };
+  paintCoupon();
+})();
+</script>
+</body>
+</html>
